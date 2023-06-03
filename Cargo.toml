@@ -1,0 +1,77 @@
+[package]
+name = "rust_play"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+resolver = "2"
+members = [
+    # beginner tutorials
+    "wgpu_tutorial/*",
+    # intermediate tutorials
+    # showcase
+    # "code/showcase/*",
+    # "run-wasm",
+]
+exclude = [
+    # "code/showcase/imgui-demo",
+    # "code/showcase/pong",
+]
+
+[workspace.package]
+edition = "2021"
+
+[workspace.dependencies.image]
+version = "*"
+default-features = false
+
+[workspace.dependencies]
+app-surface = { git = "https://github.com/jinleili/wgpu-on-app", version = "0.2.1" }
+# app-surface = { path = "../idroid/wgpu-in-app/app-surface" }
+bytemuck = "1.4"
+glam = "*"
+futures-intrusive = "0.4"
+instant = "0.1"
+pollster = "0.2"
+rayon = "1.4"
+tobj = "3.2"
+env_logger = "0.10.0"
+log = "0.4.17"
+melior = "0.4.0"
+wgpu = "0.16.0"
+winit = "0.28.6"
+
+# wasm32 dependencies
+js-sys = "*"
+cfg-if = "*"
+reqwest = { version = "*" }
+# wasm32 dependencies
+console_error_panic_hook = "*"
+console_log = "0.2.0"
+wasm-bindgen = "0.2.84"
+wasm-bindgen-futures = "0.4.34"
+web-sys = "0.3.61"
+
+# build-dependencies
+anyhow = "*"
+fs_extra = "*"
+glob = "0.3"
+
+[profile.release]
+# lto = true # VERY slightly smaller wasm
+# opt-level = 's' # 10-30% smaller wasm compared to `opt-level = 3`
+# opt-level = 1 # very slow and big wasm. Don't do this.
+opt-level = 2 # fast and small wasm, basically same as `opt-level = 's'`
+# opt-level = 3 # unecessarily large wasm for no performance gain
+
+# debug = true # include debug symbols, useful when profiling wasm
+
+[package.metadata.example.tutorial1_window]
+name = "window"
+description = "Demonstrates use of a normal map and depth map for parallax mapping"
+category = "3D Rendering"
+wasm = true
+
+[[example]]
+name = "tutorial1_window"
+path = "wgpu_tutorial/tutorial_1_window/src/main.rs"
