@@ -4,4 +4,4 @@ version = "0.1.0"
 edition.workspace = true
 
 [dependencies]
-bevy = {version = "0.10.1", features = ["wayland"]}
+bevy = {git = "https://github.com/bevyengine/bevy", features = ["wayland"]}
