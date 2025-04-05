@@ -1,0 +1,16 @@
+[package]
+name = "bevy_newton"
+version = "0.0.1"
+edition = "2024"
+authors = ["VitalyR <vr@vitlayr.com>"]
+license = "MIT OR Apache-2.0"
+description = "Real-time physics engine for Bevy engine"
+repository = "https://github.com/VitalyAnkh/bevy_newton"
+documentation = "https://docs.rs/bevy_newton"
+keywords = ["physics", "bevy", "game-dev", "collision", "rigid-body"]
+categories = ["game-engines", "physics"]
+readme = "README.md"
+
+[dependencies]
+
+bevy = "0.16"

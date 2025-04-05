@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_physics::*;
+use bevy_newton::*;
 
 fn startup(
     mut commands: Commands,
@@ -11,39 +11,32 @@ fn startup(
         .generate_tangents()
         .expect("Failed to generate tangents");
     let sphere = meshes.add(sphere_mesh);
-    // let sphere = meshes.add(Mesh::from(shape::Icosphere {
-    //     radius: 0.5,
-    //     subdivisions: 4,
-    // }));
 
     let white = materials.add(StandardMaterial {
         base_color: Color::WHITE,
         unlit: true,
-        ..Default::default()
+        ..default()
     });
 
     commands
-        .spawn(PbrBundle {
-            mesh: sphere.clone(),
-            material: white.clone(),
-            ..Default::default()
-        })
+        .spawn((Mesh3d(sphere.clone()), MeshMaterial3d(white.clone())))
+        .insert(PrevPos(Vec2::ZERO - Vec2::new(2., 0.) * DELTA_TIME))
         .insert(Pos(Vec2::ZERO));
 
-    commands.spawn(Camera3dBundle {
-        transform: Transform::from_translation(Vec3::new(0., 0., 100.)),
-        projection: Projection::Orthographic(OrthographicProjection {
+    commands.spawn((
+        Camera3d::default(),
+        Transform::from_translation(Vec3::new(0., 0., 100.)),
+        Projection::Orthographic(OrthographicProjection {
             scale: 0.01,
-            ..Default::default()
+            ..OrthographicProjection::default_3d()
         }),
-        ..Default::default()
-    });
+    ));
 }
 
 fn main() {
     App::new()
         .insert_resource(ClearColor(Color::BLACK))
-        .insert_resource(Msaa::Sample4)
+        // .insert_resource(Msaa::Sample4)
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, startup)
         .run();

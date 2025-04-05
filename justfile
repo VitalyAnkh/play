@@ -16,6 +16,7 @@ list_bin:
   
 hands_on_rust:
   #!/usr/bin/env bash
+  # Make sure wine is installed
   echo "==== build hands on rust ===="
   export HANDS_ON_RUST_SRC=$HOME/projects/dev/rust-projects/play/hands_on_rust
   cd $HANDS_ON_RUST_SRC
