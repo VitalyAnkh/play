@@ -40,7 +40,6 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         TextAlignment::Left,
         Vec2::new(-400.0, 300.0),
         &heading_style,
-        &base_style,
     );
 
     // Example 2: Arabic (RTL) text

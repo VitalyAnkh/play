@@ -6,7 +6,7 @@ rust-version.workspace = true
 
 [dependencies]
 
-bevy = {git = "https://github.com/bevyengine/bevy.git", features = ["wayland"]}
+bevy = {git = "https://github.com/bevyengine/bevy.git", features = ["wayland", "dynamic_linking"]}
 
 
 # Enable a small amount of optimization in debug mode

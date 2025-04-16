@@ -13,4 +13,4 @@ readme = "README.md"
 
 [dependencies]
 
-bevy = "0.16"
+bevy = "0.16.0-rc.3"
