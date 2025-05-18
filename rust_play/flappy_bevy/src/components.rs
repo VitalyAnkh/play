@@ -17,3 +17,12 @@ pub struct PressSpaceBarText;
 
 #[derive(Component)]
 pub struct ScoreText;
+
+#[derive(Component)]
+pub struct Bird;
+
+#[derive(Component)]
+pub struct UpperPipe;
+
+#[derive(Component)]
+pub struct LowerPipe;

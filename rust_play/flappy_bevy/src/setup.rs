@@ -65,16 +65,57 @@ pub fn setup(
     let number_texture_atlas_layout: Handle<TextureAtlasLayout> =
         texture_atlas_layouts.add(number_layout);
 
+    for i in 0..3 {
+        // 24.0 px is the width of a single digit, 2.0 px is the space between digits
+        let staring_point = -350.0 + (i as f32 * (24.0 + 2.));
+        commands.spawn((
+            Sprite::from_atlas_image(
+                asset_server.load("texture/numbers.png"),
+                TextureAtlas {
+                    layout: number_texture_atlas_layout.clone(),
+                    index: 0,
+                },
+            ),
+            Transform::from_xyz(staring_point, 200., 1.),
+            ScoreText,
+        ));
+    }
+
+    let bird_layout = TextureAtlasLayout::from_grid(UVec2::new(34, 24), 3, 1, None, None);
+    let bird_texture_atlas_layout: Handle<TextureAtlasLayout> =
+        texture_atlas_layouts.add(bird_layout);
+
     commands.spawn((
         Sprite::from_atlas_image(
-            asset_server.load("texture/numbers.png"),
+            asset_server.load("texture/bird.png"),
             TextureAtlas {
-                layout: number_texture_atlas_layout,
+                layout: bird_texture_atlas_layout.clone(),
                 index: 0,
             },
         ),
-        Transform::from_xyz(-350., 200., 1.),
+        Transform::from_xyz(0., 0., 2.),
         ScoreText,
+    ));
+
+    commands.spawn((
+        Sprite {
+            image: asset_server.load("texture/pipe.png"),
+            ..default()
+        },
+        Transform::from_xyz(350., -200.0, 0.5),
+        LowerPipe,
+    ));
+
+    let mut transform = Transform::from_xyz(350., 250., 0.5);
+    transform.rotate(Quat::from_rotation_z(std::f32::consts::PI));
+
+    commands.spawn((
+        Sprite {
+            image: asset_server.load("texture/pipe.png"),
+            ..default()
+        },
+        transform,
+        UpperPipe,
     ));
 
     commands.spawn((
