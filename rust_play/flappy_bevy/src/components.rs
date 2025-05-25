@@ -13,7 +13,7 @@ pub struct GameOverText;
 pub struct CloudBlue;
 
 #[derive(Component)]
-pub struct PressSpaceBarText;
+pub struct PressSpaceBarText(pub Timer);
 
 #[derive(Component)]
 pub struct ScoreText;

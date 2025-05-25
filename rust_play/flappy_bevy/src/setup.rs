@@ -3,6 +3,7 @@ use bevy::prelude::*;
 use crate::{
     components::*,
     constants::{WINDOW_HEIGHT, WINDOW_WIDTH},
+    utils::random_pipe_position,
 };
 
 pub fn setup(
@@ -58,7 +59,7 @@ pub fn setup(
             ..default()
         },
         Transform::from_xyz(0., -50., 1.),
-        PressSpaceBarText,
+        PressSpaceBarText(Timer::from_seconds(0.5, TimerMode::Repeating)),
     ));
 
     let number_layout = TextureAtlasLayout::from_grid(UVec2::new(24, 36), 1, 10, None, None);
@@ -97,26 +98,35 @@ pub fn setup(
         ScoreText,
     ));
 
-    commands.spawn((
-        Sprite {
-            image: asset_server.load("texture/pipe.png"),
-            ..default()
-        },
-        Transform::from_xyz(350., -200.0, 0.5),
-        LowerPipe,
-    ));
+    for i in 0..5 {
+        let delta_x = i as f32 * 200.; // space between pairs of pipes
+        let (lower_y, upper_y) = random_pipe_position();
+        let mut transform = Transform::from_xyz(200.0 + delta_x, lower_y, 0.5);
 
-    let mut transform = Transform::from_xyz(350., 250., 0.5);
-    transform.rotate(Quat::from_rotation_z(std::f32::consts::PI));
+        commands.spawn((
+            Sprite {
+                image: asset_server.load("texture/pipe.png"),
+                ..default()
+            },
+            transform,
+            LowerPipe,
+        ));
 
-    commands.spawn((
-        Sprite {
-            image: asset_server.load("texture/pipe.png"),
-            ..default()
-        },
-        transform,
-        UpperPipe,
-    ));
+        transform.rotate(Quat::from_rotation_z(std::f32::consts::PI));
+        transform.translation.y = upper_y;
+
+        commands.spawn((
+            Sprite {
+                image: asset_server.load("texture/pipe.png"),
+                ..default()
+            },
+            transform,
+            UpperPipe,
+        ));
+    }
+
+    let mut cloud_transform = Transform::from_xyz(0., 0., 2.);
+    cloud_transform.rotate(Quat::from_rotation_z(std::f32::consts::PI));
 
     commands.spawn((
         Sprite {
@@ -126,7 +136,8 @@ pub fn setup(
             ..default()
         },
         Visibility::Hidden,
-        Transform::from_xyz(0., 0., 2.),
+        // Transform::from_xyz(0., 0., 2.),
+        cloud_transform,
         CloudBlue,
     ));
 }
