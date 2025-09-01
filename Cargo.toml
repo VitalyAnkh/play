@@ -12,7 +12,7 @@ exclude = [
 
 [workspace.package]
 edition = "2024"
-rust-version = "1.85.0"
+rust-version = "1.89"
 
 [workspace.dependencies.image]
 version = "0.24"
@@ -59,3 +59,11 @@ opt-level = 2 # fast and small wasm, basically same as `opt-level = 's'`
 # debug = true # include debug symbols, useful when profiling wasm
 panic = "abort"
 codegen-units = 1
+
+# Enable a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+ 
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3

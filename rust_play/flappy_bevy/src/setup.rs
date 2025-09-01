@@ -131,7 +131,7 @@ pub fn setup(
     commands.spawn((
         Sprite {
             image: asset_server.load("texture/cloud.jpg"),
-            custom_size: Some(Vec2::new(WINDOW_WIDTH / 8., WINDOW_HEIGHT / 8.)),
+            custom_size: Some(Vec2::new(WINDOW_WIDTH / 8.0, WINDOW_HEIGHT / 8.0)),
             image_mode: SpriteImageMode::Scale(ScalingMode::FillCenter),
             ..default()
         },

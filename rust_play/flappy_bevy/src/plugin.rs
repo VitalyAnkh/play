@@ -8,7 +8,7 @@ impl Plugin for MyPlugin {
         app.add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: "Flappy Bevy".to_string(),
-                resolution: (WINDOW_WIDTH, WINDOW_HEIGHT).into(),
+                resolution: (WINDOW_WIDTH as u32, WINDOW_HEIGHT as u32).into(),
                 // resizable: false,
                 ..default()
             }),

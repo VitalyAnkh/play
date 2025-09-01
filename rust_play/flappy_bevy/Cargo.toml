@@ -2,18 +2,8 @@
 name = "flappy_bevy"
 version = "0.1.0"
 edition.workspace = true
-rust-version.workspace = true
 
 [dependencies]
 
 bevy = {git = "https://github.com/bevyengine/bevy.git", features = ["wayland", "dynamic_linking"]}
 rand = "0.9.1"
-
-
-# Enable a small amount of optimization in debug mode
-[profile.dev]
-opt-level = 1
- 
-# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
-[profile.dev.package."*"]
-opt-level = 3
