@@ -17,7 +17,7 @@ impl Default for Mass {
     }
 }
 
-#[derive(Component, Default)]
+#[derive(Bundle, Default)]
 pub struct Particle {
     pub pos: Pos,
     pub prev_pos: PrevPos,

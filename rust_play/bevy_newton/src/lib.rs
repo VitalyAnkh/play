@@ -16,7 +16,6 @@ fn simulate(mut query: Query<(&mut Pos, &mut PrevPos, &Mass)>) {
         prev_pos.0 = pos.0;
         pos.0 = prev_pos.0 + velocity * DELTA_TIME;
     }
-    println!("debug!");
 }
 
 // Copy positions from the physics world to render world
