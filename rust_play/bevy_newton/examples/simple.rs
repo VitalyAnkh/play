@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{math::VectorSpace, prelude::*};
 use bevy_newton::*;
 
 fn startup(
@@ -20,8 +20,10 @@ fn startup(
 
     commands
         .spawn((Mesh3d(sphere.clone()), MeshMaterial3d(white.clone())))
-        .insert(PrevPos(Vec2::ZERO - Vec2::new(2., 0.) * DELTA_TIME))
-        .insert(Pos(Vec2::ZERO));
+        .insert(Particle::new_with_pos_and_vel(
+            Vec2::ZERO,
+            Vec2::new(2., 0.),
+        ));
 
     commands.spawn((
         Camera3d::default(),
@@ -39,5 +41,6 @@ fn main() {
         // .insert_resource(Msaa::Sample4)
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, startup)
+        .add_plugins(NewtonPlugin)
         .run();
 }
