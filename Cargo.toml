@@ -2,12 +2,16 @@
 resolver = "2"
 members = [
     "hands_on_rust/*",
-    "wgpu_tutorial/*",
+    # "wgpu_tutorial/*",
     "rust_play/*"
 ]
 exclude = [
     # "code/showcase/imgui-demo",
     # "code/showcase/pong",
+    "rust_play/rustc_dev",
+    "rust_play/mini_apps",
+    "rust_play/egui_play",
+    "rust_play/extreme_bevy"
 ]
 
 [workspace.package]

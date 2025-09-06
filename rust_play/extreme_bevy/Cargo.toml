@@ -5,8 +5,8 @@ edition.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-bevy = "0.14"
-bevy_asset_loader = "0.21.0"
-bevy_ggrs = {version = "0.16", features = ["wasm-bindgen"]}
-bevy_matchbox = {version = "0.10", features = ["ggrs"]}
-clap = { version = "4.5.19", features = ["derive"] }
+bevy = "0.16"
+bevy_asset_loader = "*"
+bevy_ggrs = {version = "*", features = ["wasm-bindgen"]}
+bevy_matchbox = {version = "*", features = ["ggrs"]}
+clap = { version = "*", features = ["derive"] }

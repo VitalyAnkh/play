@@ -1,13 +1,15 @@
 [package]
 name = "mini_apps"
 version = "0.1.0"
-# edition.workspace = true
-edition = "2024"
+edition.workspace = true
 
 [dependencies]
 
-bevy = {git = "https://github.com/bevyengine/bevy.git", features = ["wayland"]}
+# bevy = {git = "https://github.com/bevyengine/bevy.git", features = ["wayland"]}
+bevy = { path = "/home/vitalyr/projects/dev/rust-projects/bevy" }
+bevy-inspector-egui = "*"
+bevy_egui = "*"
 image.workspace = true
-rand = "0.8.5"
-serde = "1.0.210"
-serde_json = "1.0.128"
+rand = "*"
+serde = "*"
+serde_json = "*"

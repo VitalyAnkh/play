@@ -6,4 +6,4 @@ edition.workspace = true
 [dependencies]
 
 bevy = {git = "https://github.com/bevyengine/bevy.git", features = ["wayland", "dynamic_linking"]}
-rand = "0.9.1"
+rand = "*"

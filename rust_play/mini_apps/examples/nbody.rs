@@ -1,6 +1,5 @@
 use bevy::prelude::Circle;
 use bevy::prelude::*;
-use bevy::sprite::MaterialMesh2dBundle;
 use rand::Rng;
 
 const WINDOW_WIDTH: f32 = 800.0;
@@ -36,7 +35,7 @@ fn setup(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2d);
 
     let mut rng = rand::thread_rng();
 
@@ -45,16 +44,13 @@ fn setup(
         let size = (mass.log10() - 9.0) * 2.0; // Adjust size based on mass
 
         commands.spawn((
-            MaterialMesh2dBundle {
-                mesh: meshes.add(Mesh::from(Circle::new(size))).into(),
-                material: materials.add(ColorMaterial::from(Color::WHITE)),
-                transform: Transform::from_xyz(
-                    rng.gen_range(-WINDOW_WIDTH / 2.0..WINDOW_WIDTH / 2.0),
-                    rng.gen_range(-WINDOW_HEIGHT / 2.0..WINDOW_HEIGHT / 2.0),
-                    0.0,
-                ),
-                ..default()
-            },
+            Mesh2d(meshes.add(Mesh::from(Circle::new(size))).into()),
+            MeshMaterial2d(materials.add(ColorMaterial::from(Color::WHITE))),
+            Transform::from_xyz(
+                rng.gen_range(-WINDOW_WIDTH / 2.0..WINDOW_WIDTH / 2.0),
+                rng.gen_range(-WINDOW_HEIGHT / 2.0..WINDOW_HEIGHT / 2.0),
+                0.0,
+            ),
             Body {
                 velocity: Vec2::new(rng.gen_range(-10.0..10.0), rng.gen_range(-10.0..10.0)),
                 mass,
@@ -65,7 +61,7 @@ fn setup(
 
 fn update_bodies(mut query: Query<(&mut Body, &Transform)>) {
     // This doesn't interfere the original query's usage if `reborrow` is not active
-    let reborrow = query.reborrow();
+    // let reborrow = query.reborrow();
     let bodies: Vec<(Vec2, f32)> = query
         .iter()
         .map(|(body, transform)| (transform.translation.truncate(), body.mass))
@@ -89,7 +85,7 @@ fn update_bodies(mut query: Query<(&mut Body, &Transform)>) {
 
 fn update_positions(mut query: Query<(&Body, &mut Transform)>, time: Res<Time>) {
     for (body, mut transform) in query.iter_mut() {
-        transform.translation += body.velocity.extend(0.0) * time.delta_seconds();
+        transform.translation += body.velocity.extend(0.0) * time.delta_secs();
 
         // Wrap around screen edges
         let mut pos = transform.translation;
